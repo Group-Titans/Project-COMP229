@@ -1,0 +1,64 @@
+<% include ../partials/header.ejs %>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <h3>Library Books List </h3>
+          <!-- FIXED ADD BUTTON BELOW -->
+          <a href="/books/details" class="btn btn-primary"><i class="fa fa-plus"></i> Add a book</a>
+          <br>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th class="text-center">Author</th>
+                  <th class="text-center">Genre</th>
+                  <th class="text-center">Available</th>
+                  <th class="text-center">Return Date</th>
+                  <th class="text-center">Overdue Fees</th>
+                  <th class="text-center">Currently With</th>
+                  <th class="text-center"></th>
+                  <th class="text-center"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Template Row -->
+                <% for (let count = 0; count < books.length; count++) { %>
+                <tr>
+                  <td><%= books[count].Title %></td>
+                  <td class="text-center"><%= books[count].Author %></td>
+                  <td class="text-center"><%= books[count].Genre %></td>
+                  <td class="text-center"><%= books[count].Available %></td>
+                  <td class="text-center"><%= books[count].Return_date %></td>
+                  <td class="text-center">$<%= books[count].Overdue_fees %></td>
+                  <td class="text-center"><%= books[count].Currently_with %></td>
+
+                  <td class="text-center">
+                    <!-- EDIT BUTTON -->
+                    <a href="/books/details/<%= books[count]._id %>" class="btn btn-primary btn-sm">
+                      <i class="fas fa-pencil-alt"></i>Edit</a>
+                  </td>
+
+                  <td class="text-center">
+                    <!-- DELETE BUTTON -->
+                    <a href="/books/delete/<%= books[count]._id %>" class="btn btn-danger btn-sm">
+                      <i class="fa fa-times" aria-hidden="true"></i></a>
+                      </a>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+           <div class="col-md-offset-1 col-md-10 text-center">
+            <ul class="pagination pagination-lg pager" id="myPager"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<% include ../partials/footer.ejs %>
+
+
