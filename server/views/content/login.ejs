@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login and Register</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .register-form {
+      display: none;
+    }
+  </style>
+</head>
+<body class="center-container">
+  <h1>Login</h1>
+  <% if (messages.error) { %>
+    <p class="error"><%= messages.error[0] %></p>
+  <% } %>
+  
+  <form method="POST" action="/login">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <!-- Registration Form -->
+  <h1>Register</h1>
+  <% if (messages.registrationError) { %>
+    <p class="error"><%= messages.registrationError[0] %></p>
+  <% } %>
+
+  <form method="POST" action="/login/register" class="register-form">
+    <input type="text" name="newUsername" placeholder="New Username" required>
+    <input type="password" name="newPassword" placeholder="New Password" required>
+    <button type="submit">Register</button>
+  </form>
+
+  <!-- Add a Register button to toggle the forms -->
+  <button onclick="showRegisterForm()">Register</button>
+
+  <script>
+    // JavaScript to toggle between login and registration forms
+    const loginForm = document.querySelector('form:not(.register-form)');
+    const registerForm = document.querySelector('.register-form');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      registerForm.style.display = 'none';
+    });
+
+    function showRegisterForm() {
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

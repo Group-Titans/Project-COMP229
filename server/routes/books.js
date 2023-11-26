@@ -5,16 +5,20 @@ let mongoose = require('mongoose');
 
 // define the book model
 let Book = require('../models/books');
+const isLoggedIn = require('../config/auth').isLoggedIn;
 
 /* GET books List page. READ */
-router.get('/', (req, res, next) => {
+router.get('/',isLoggedIn, (req, res, next) => {
   // find all books in the books collection
+  const userRole = req.isAuthenticated() ? req.user.role : undefined;
+  console.log('User Role in /books route:', userRole);
   Book.find( (err, books) => {
     if (err) {
       return console.error(err);
     }
     else {
       res.render('books/index', {
+        userRole: userRole,
         title: 'Books',
         books: books
       });
@@ -25,11 +29,20 @@ router.get('/', (req, res, next) => {
 
 //  GET the Book Details page in order to add a new Book
 router.get('/details', (req, res, next) => {
-  res.render('books/details', { title: 'Add a Book', books: {} });
+  const userRole = req.isAuthenticated() ? req.user.role : undefined;
+  res.render('books/details', { title: 'Add a Book', books: {}, userRole: userRole });
 });
+
 
 // POST process the Book Details page and create a new Book - CREATE
 router.post('/details', (req, res, next) => {
+  const overdueFees = parseFloat(req.body.overdueFees);
+
+  if (isNaN(overdueFees)) {
+    // Handle the case where the value is not a valid number
+    // You can set a default value, send an error response, etc.
+    console.log("overdueFees should be number");
+  }
   const newBook = new Book({
     Title: req.body.title,
     Author: req.body.author,
@@ -53,6 +66,7 @@ newBook.save((err) => {
 // GET the Book Details page in order to edit an existing Book
 router.get('/details/:id', (req, res, next) => {
   const id = req.params.id;
+  const userRole = req.isAuthenticated() ? req.user.role : undefined;
 
     Book.findById(id, (err, book) => {
         if (err) {
@@ -60,7 +74,7 @@ router.get('/details/:id', (req, res, next) => {
             res.end(err);
         } else {
             // Show Edit view
-            res.render('books/details', { title: "Edit Books List", books: book });
+            res.render('books/details', { title: "Edit Books List", books: book ,userRole: userRole});
         }
     });
 });

@@ -21,7 +21,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">
+      <a class="navbar-brand" href="/index">
         <img src="/Assets/images/logo.jpeg" alt="Titans Library Logo" class="logo-img">
         Titans Library
       </a>
@@ -31,11 +31,12 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav navbar-right">
         <% if(title == "Home") { %>
-          <li class="active"><a href="/"><i class="fa fa-home fa-lg"></i> Home</a></li>
+          <li class="active"><a href="/index"><i class="fa fa-home fa-lg"></i> Home</a></li>
         <% } else { %>
-          <li><a href="/"><i class="fa fa-home fa-lg"></i> Home</a></li>
+          <li><a href="/index"><i class="fa fa-home fa-lg"></i> Home</a></li>
         <% } %>
-
+        
+        <% if (userRole === 'admin') { %>
           <% if(title == "books") { %>
           <li class="active"><a href="/books"><i class="fa fa-book fa-lg">
           </i> Books List</a></li>
@@ -43,7 +44,7 @@
             <li><a href="/books"><i class="fa fa-book fa-lg">
             </i> Library Inventory</a></li>
           <% } %>
-
+          <% } %>
           <% if(title == "overdue") { %>
             <li class="active"><a href="#"><i class="fa fa-warning fa-lg"></i> Overdue Fees Rules</a></li>
           <% } else { %>
@@ -55,6 +56,16 @@
           <% } else { %>
             <li><a href="#"><i class="fa fa-phone fa-lg"></i> Contacts</a></li>
           <% } %>
+          
+          <% if(title == "Logout") { %>
+            <li class="active"><a href="/logout"><i class="fa fa-book fa-lg">
+            </i> Logout</a></li>
+            <% } else { %>
+              <li><a href="/logout"><i class="fa fa-book fa-lg">
+              </i> Logout</a></li>
+            <% } %>
+  
+          
 
       </ul>
     </div><!-- /.navbar-collapse -->
