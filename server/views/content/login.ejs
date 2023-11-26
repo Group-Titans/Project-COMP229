@@ -7,7 +7,14 @@
   <link rel="stylesheet" href="../css/styles.css">
   <style>
     .register-form {
-      display: none;
+      display: none; /* Hide the registration form by default */
+    }
+
+    .register-form label,
+    .register-form input,
+    .register-form button {
+      display: block;
+      margin-bottom: 10px; /* Adjust the margin as needed for spacing */
     }
   </style>
 </head>
@@ -30,27 +37,40 @@
   <% } %>
 
   <form method="POST" action="/login/register" class="register-form">
+    <label for="newUsername">New Username:</label>
     <input type="text" name="newUsername" placeholder="New Username" required>
+
+    <label for="newPassword">New Password:</label>
     <input type="password" name="newPassword" placeholder="New Password" required>
+
+    <label for="firstName">First Name:</label>
+    <input type="text" name="firstName" placeholder="First Name" required>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" name="lastName" placeholder="Last Name" required>
+
+    <label for="Email">Email:</label>
+    <input type="email" name="email" placeholder="Email" required>
     <button type="submit">Register</button>
   </form>
 
-  <!-- Add a Register button to toggle the forms -->
-  <button onclick="showRegisterForm()">Register</button>
+  <button id="newRegisterButton" onclick="toggleForms()">New Register</button>
 
-  <script>
-    // JavaScript to toggle between login and registration forms
-    const loginForm = document.querySelector('form:not(.register-form)');
-    const registerForm = document.querySelector('.register-form');
+<script>
+  // JavaScript to toggle between login and registration forms
+  const loginForm = document.querySelector('form:not(.register-form)');
+  const registerForm = document.querySelector('.register-form');
+  const newRegisterButton = document.getElementById('newRegisterButton');
 
-    document.addEventListener('DOMContentLoaded', () => {
-      registerForm.style.display = 'none';
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    registerForm.style.display = 'none';
+  });
 
-    function showRegisterForm() {
-      loginForm.style.display = 'none';
-      registerForm.style.display = 'block';
-    }
-  </script>
+  function toggleForms() {
+    loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
+    registerForm.style.display = registerForm.style.display === 'none' ? 'block' : 'none';
+    newRegisterButton.style.display = 'none'; // Hide the New Register button
+  }
+</script>
 </body>
 </html>

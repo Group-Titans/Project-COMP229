@@ -7,7 +7,7 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  const { newUsername, newPassword, fullName, email } = req.body;
+  const { newUsername, newPassword, firstName,lastName, email } = req.body;
 
   try {
     const existingUser = await User.findOne({ username: newUsername });
@@ -18,7 +18,8 @@ router.post('/register', async (req, res) => {
     const newUser = new User({
       username: newUsername,
       password: newPassword,
-      fullName: fullName,
+      firstName: firstName,
+      lastName:lastName,
       email: email,
     });
 
