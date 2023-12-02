@@ -61,6 +61,15 @@ router.get('/index', isLoggedIn, (req, res) => {
   });
 });
 
+router.get('/overduefees', isLoggedIn, (req, res) => {
+  console.log('Request to /overduefees route');
+  const userRole = req.isAuthenticated() ? req.user.role : undefined;
+  console.log('User Role in /overduefees route:', userRole);
+  res.render('content/overduefees', {
+    userRole: userRole,
+    title: 'Overdue Fees'
+  });
+});
 
 
 // GET logout logic
@@ -84,4 +93,3 @@ router.get('/logout', (req, res) => {
 
 
 module.exports = router;
-

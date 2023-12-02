@@ -30,42 +30,32 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <% if(title == "Home") { %>
+        <% if (title == "Home") { %>
           <li class="active"><a href="/index"><i class="fa fa-home fa-lg"></i> Home</a></li>
         <% } else { %>
           <li><a href="/index"><i class="fa fa-home fa-lg"></i> Home</a></li>
         <% } %>
-        
-        <% if (userRole === 'admin') { %>
-          <% if(title == "books") { %>
-          <li class="active"><a href="/books"><i class="fa fa-book fa-lg">
-          </i> Books List</a></li>
-          <% } else { %>
-            <li><a href="/books"><i class="fa fa-book fa-lg">
-            </i> Library Inventory</a></li>
-          <% } %>
-          <% } %>
-          <% if(title == "overdue") { %>
-            <li class="active"><a href="#"><i class="fa fa-warning fa-lg"></i> Overdue Fees Rules</a></li>
-          <% } else { %>
-            <li><a href="#"><i class="fa fa-warning fa-lg"></i> Overdue Fees Rules</a></li>
-          <% } %>
-    
-          <% if(title == "contacts") { %>
-            <li class="active"><a href="#"><i class="fa fa-phone fa-lg"></i> Contacts</a></li>
-          <% } else { %>
-            <li><a href="#"><i class="fa fa-phone fa-lg"></i> Contacts</a></li>
-          <% } %>
-          
-          <% if(title == "Logout") { %>
-            <li class="active"><a href="/logout"><i class="fa fa-book fa-lg">
-            </i> Logout</a></li>
-            <% } else { %>
-              <li><a href="/logout"><i class="fa fa-book fa-lg">
-              </i> Logout</a></li>
-            <% } %>
   
-          
+        <!-- Always display "Overdue Fees" link for any logged-in user -->
+        <li><a href="/overduefees"><i class="fa fa-warning fa-lg"></i>About Overdue Fees</a></li>
+  
+        <% if (title == "books") { %>
+          <li class="active"><a href="/books"><i class="fa fa-book fa-lg"></i> Books List</a></li>
+        <% } else { %>
+          <li><a href="/books"><i class="fa fa-book fa-lg"></i> Library Inventory</a></li>
+        <% } %>
+  
+        <% if (title == "contacts") { %>
+          <li class="active"><a href="#"><i class="fa fa-phone fa-lg"></i> Contacts</a></li>
+        <% } else { %>
+          <li><a href="#"><i class="fa fa-phone fa-lg"></i> Contacts</a></li>
+        <% } %>
+  
+        <% if (title == "Logout") { %>
+          <li class="active"><a href="/logout"><i class="fa fa-book fa-lg"></i> Logout</a></li>
+        <% } else { %>
+          <li><a href="/logout"><i class="fa fa-book fa-lg"></i> Logout</a></li>
+        <% } %>
 
       </ul>
     </div><!-- /.navbar-collapse -->
