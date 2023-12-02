@@ -29,3 +29,47 @@ body {
 .navbar-brand .logo-img {
   margin-right: 5px; /* Optional margin between logo and text */
 }
+
+
+/* Contact page remaining css code */
+.library-info,
+    .quote-form {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .quote-form form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .quote-form form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .quote-form form label {
+        margin-bottom: 5px;
+    }
+
+    .quote-form form input,
+    .quote-form form textarea {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        margin-top: 5px;
+    }
+
+    .quote-form form button {
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .quote-form form button:hover {
+        background-color: #0056b3;
+    }

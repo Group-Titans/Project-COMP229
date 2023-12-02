@@ -61,6 +61,7 @@ router.get('/index', isLoggedIn, (req, res) => {
   });
 });
 
+// GET About Overdue Page page
 router.get('/overduefees', isLoggedIn, (req, res) => {
   console.log('Request to /overduefees route');
   const userRole = req.isAuthenticated() ? req.user.role : undefined;
@@ -71,6 +72,16 @@ router.get('/overduefees', isLoggedIn, (req, res) => {
   });
 });
 
+// GET contact page
+router.get('/contact', isLoggedIn, (req, res) => {
+  console.log('Request to /contact route');
+  const userRole = req.isAuthenticated() ? req.user.role : undefined;
+  console.log('User Role in /contact route:', userRole);
+  res.render('content/contact', {
+    userRole: userRole,
+    title: 'Contact Us'
+  });
+});
 
 // GET logout logic
 

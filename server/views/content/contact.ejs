@@ -1,0 +1,47 @@
+<% include ../partials/header.ejs %>
+
+<style>
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+</style>
+
+<!-- Contact Page Content -->
+<div class="container">
+    <div class="library-info">
+        <h1>Contact Us</h1>
+        <h2>Library Information</h2>
+        <p>
+            <strong>Name of the Library:</strong> Titans Library<br>
+            <strong>Phone Number:</strong> 123-456-7890<br>
+            <strong>Email Address:</strong> info@titanslibrary.com
+        </p>
+    </div>
+
+    <div class="quote-form">
+        <h2>Request a Quote</h2>
+        <form action="/submit_quote" method="POST">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>
