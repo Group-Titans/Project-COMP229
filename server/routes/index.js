@@ -1,43 +1,29 @@
-// index.js
-
 const express = require('express');
 const router = express.Router();
-const flash = require('express-flash');
-const isLoggedIn = require('../config/auth').isLoggedIn;
-// Import the User model for authentication
-const User = require('../models/user');
 const passport = require('../config/passport');
+const Book = require('../models/books'); // Check the correct path to your Book model
 
-// Remove the following line as it's not needed in this file
-// const app = express();
+router.use(express.urlencoded({ extended: true }));
 
-// GET login page
 router.get('/', (req, res) => {
-  res.render('content/login');
+  res.render('content/index', {
+    userRole: '',
+    title: 'Home',
+    books: ''
+  });
 });
 
-
-// POST login logic
 router.post('/login', (req, res, next) => {
-  console.log('Received username:', req.body.username);
-  console.log('Received password:', req.body.password);
   passport.authenticate('local', {
-    successRedirect: '/index', // Add a slash before 'content'
-    failureRedirect: '/login', // Add a slash before 'content'
-    failureFlash: true, // Enable flash messages
-  })(req, res,async (err) => {
+    successRedirect: '/index',
+    failureRedirect: '/login',
+    failureFlash: true,
+  })(req, res, async (err) => {
     if (!err) {
-      // Authentication successful
-      console.log('User is authenticated');
       const user = req.user;
-
-      // Set user role in session
       req.session.userRole = user.role;
-      
-      // Redirect to /index
       return res.redirect('/index');
     } else {
-      // Authentication failed
       console.log('Authentication failed');
       return res.redirect('/login');
     }
@@ -48,12 +34,8 @@ router.get('/login', (req, res) => {
   res.render('content/login', { messages: req.flash() });
 });
 
-
-
-router.get('/index', isLoggedIn, (req, res) => {
-  console.log('Request to /index route');
-  const userRole = req.isAuthenticated() ? req.user.role : undefined;
-  console.log('User Role in /index route:', userRole);
+router.get('/index', (req, res) => {
+  const userRole = req.isAuthenticated() ? req.user.role : '';
   res.render('content/index', {
     userRole: userRole,
     title: 'Home',
@@ -61,29 +43,37 @@ router.get('/index', isLoggedIn, (req, res) => {
   });
 });
 
-// GET About Overdue Page page
-router.get('/overduefees', isLoggedIn, (req, res) => {
-  console.log('Request to /overduefees route');
-  const userRole = req.isAuthenticated() ? req.user.role : undefined;
-  console.log('User Role in /overduefees route:', userRole);
+router.get('/overduefees', (req, res) => {
+  const userRole = req.isAuthenticated() ? req.user.role : '';
   res.render('content/overduefees', {
     userRole: userRole,
     title: 'Overdue Fees'
   });
 });
 
-// GET contact page
-router.get('/contact', isLoggedIn, (req, res) => {
-  console.log('Request to /contact route');
-  const userRole = req.isAuthenticated() ? req.user.role : undefined;
-  console.log('User Role in /contact route:', userRole);
+router.get('/contact', (req, res) => {
+  const userRole = req.isAuthenticated() ? req.user.role : '';
   res.render('content/contact', {
     userRole: userRole,
     title: 'Contact Us'
   });
 });
 
-// GET logout logic
+router.get('/books', (req, res) => {
+  Book.find((err, books) => {
+    if (err) {
+      console.error(err);
+      res.render('error', { error: err });
+    } else {
+      const userRole = req.isAuthenticated() ? req.user.role : '';
+      res.render('books/index', {
+        userRole: userRole,
+        title: 'Books',
+        books: books
+      });
+    }
+  });
+});
 
 router.get('/logout', (req, res) => {
   req.logout(function (err) {
@@ -91,16 +81,9 @@ router.get('/logout', (req, res) => {
       console.error('Error during logout:', err);
       return next(err);
     }
-
-    // Add flash messages if needed
     req.flash('info', 'Successfully logged out.');
-
-    // Redirect to the login page
-    res.redirect('/login');
+    res.redirect('/');
   });
 });
-
-
-
 
 module.exports = router;
